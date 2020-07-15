@@ -3,7 +3,7 @@ const { response } = require("express");
 
 const dadJoke = new Promise((resolve, reject) => {
   try {
-    request({
+    const answer = request({
       uri: "https://icanhazdadjoke.com",
       headers: { Accept: "application/json" },
       json: true,

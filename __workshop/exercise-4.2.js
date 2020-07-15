@@ -2,9 +2,16 @@ const request = require("request-promise");
 const { response } = require("express");
 
 const getTronaldDumpQuote = async () => {
-  return request("https://api.tronalddump.io/random/quote", {
-    headers: { accept: "object" },
-  });
+  try {
+    const answer = await request({
+      uri: "https://www.tronalddump.io/random/quote",
+      headers: { Accept: "application/json" },
+      json: true,
+    });
+    return answer.value;
+  } catch (err) {
+    reject(err);
+  }
 };
 
 getTronaldDumpQuote().then((response) => {
