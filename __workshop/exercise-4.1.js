@@ -1,14 +1,19 @@
 const request = require("request-promise");
 const { response } = require("express");
 
-// getDadJoke
-const getJoke = () => {
-  return request("https://icanhazdadjoke.com/", {
-    headers: { Accept: "application/json" },
-    json: true,
-  });
-};
+const dadJoke = new Promise((resolve, reject) => {
+  try {
+    request({
+      uri: "https://icanhazdadjoke.com",
+      headers: { Accept: "application/json" },
+      json: true,
+    }).then((response) => {
+      resolve(response.joke);
+    });
+  } catch (err) {
+    reject(err);
+  }
+});
 
 // 4.1
-// getJoke().then((data) => console.log(data));
-getJoke().then((response) => console.log(response));
+dadJoke.then((data) => console.log(data));
